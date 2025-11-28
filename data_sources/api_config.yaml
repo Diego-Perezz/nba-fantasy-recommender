@@ -1,0 +1,61 @@
+
+# NBA Fantasy Recommender - API Configuration
+# NBA Stats API (Official)
+
+nba_stats:
+  base_url: "https://stats.nba.com/stats"
+
+  # Required headers (NBA blocks requests without these)
+  headers:
+    User-Agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    Accept: "application/json, text/plain, */*"
+    Accept-Language: "en-US,en;q=0.9"
+    Referer: "https://www.nba.com/"
+    Origin: "https://www.nba.com"
+    Connection: "keep-alive"
+    Host: "stats.nba.com"
+
+  # Common endpoints
+  endpoints:
+    season_player_stats: "leaguedashplayerstats"
+    player_game_logs: "playergamelog"
+    player_info: "commonplayerinfo"
+    advanced_stats: "leaguedashplayerstats"
+    hustle_stats: "leaguehustlestatsplayer"
+    tracking_stats: "leaguedashplayertrackstats"
+    team_stats: "leaguedashteamstats"
+
+  # Default parameters reused across calls
+  default_params:
+    Season: "2025-26"
+    SeasonType: "Regular Season"
+    PerMode: "PerGame"
+
+
+# Injury Data Sources
+injuries:
+  rotowire:
+    url: "https://www.rotowire.com/basketball/injury-report.php"
+    type: "html"  # scraped HTML table
+
+  espn:
+    url: "https://www.espn.com/nba/injuries"
+    type: "html"
+
+
+# Schedule Data
+schedule:
+  basketball_reference:
+    url: "https://www.basketball-reference.com/leagues/NBA_2026_games.html"
+    type: "html"
+
+  kaggle:
+    description: "Optional static CSV schedule dataset"
+    file: "raw_data/schedule_csv/nba_schedule_2026.csv"
+
+# Rate Limits & Retry Policy
+settings:
+  retries: 3
+  timeout: 10
+  sleep_between_calls: 0.5  # seconds
+  
